@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,5 +49,25 @@ public class Library {
         }
 
         return results;
+    }
+
+    public boolean removeBook(String isbn){
+        Iterator<Book> bookIterator = this.books.iterator();
+
+        while (bookIterator.hasNext()){
+            Book book = bookIterator.next();
+
+            if (book.getIsbn().equals(isbn)){
+
+                if (!book.isAvailable()){
+                    return false;
+                }
+
+                bookIterator.remove();
+                return true;
+            }
+        }
+
+        return false;
     }
 }
