@@ -52,6 +52,18 @@ public class Library {
         return results;
     }
 
+    public List<Book> searchByAvailability(boolean available){
+        List<Book> results = new ArrayList<>();
+
+        for (Book book : this.books){
+            if (book.isAvailable() == available){
+                results.add(book);
+            }
+        }
+
+        return  results;
+    }
+
     public boolean removeBook(String isbn){
         Iterator<Book> bookIterator = this.books.iterator();
 
