@@ -1,6 +1,7 @@
 package ui;
 
 import model.Library;
+import model.Book;
 
 import java.util.Scanner;
 
@@ -42,7 +43,7 @@ public class ConsoleMenu {
             switch (choice) {
 
                 case 1:
-                    System.out.println("Add Book");
+                    addBook();
                     break;
 
                 case 2:
@@ -74,6 +75,27 @@ public class ConsoleMenu {
                     System.out.println("Invalid choice!");
             }
         }
+    }
+
+    private void addBook() {
+
+        System.out.print("Enter book title: ");
+        String title = scanner.nextLine();
+
+        System.out.print("Enter author name: ");
+        String author = scanner.nextLine();
+
+        System.out.print("Enter ISBN: ");
+        String isbn = scanner.nextLine();
+
+        System.out.print("Enter publication year: ");
+        int year = Integer.parseInt(scanner.nextLine());
+
+        Book book = new Book(title, author, isbn, year);
+
+        library.addBook(book);
+
+        System.out.println("Book added successfully!");
     }
 
 }
