@@ -1,0 +1,52 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+public class Library {
+    private List<Book> books = new ArrayList<>();
+    private List<Loan> loans = new ArrayList<>();
+
+    public void addBook(Book book){
+        books.add(book);
+    }
+
+    public List<Book> getAllBooks(){
+        return new ArrayList<>(books);
+    }
+
+    public List<Book> searchByTitle(String title){
+        List<Book> results = new ArrayList<>();
+
+        for (Book book : this.books){
+            if(book.getTitle().toLowerCase().contains(title.toLowerCase())){
+                results.add(book);
+            }
+        }
+
+        return results;
+    }
+
+    public List<Book> searchByAuthor(String author){
+        List<Book> results = new ArrayList<>();
+
+        for (Book book : this.books) {
+            if (book.getTitle().toLowerCase().contains(author.toLowerCase())) {
+                results.add(book);
+            }
+        }
+
+        return results;
+    }
+
+    public List<Book> searchByYear (int year){
+        List<Book> results = new ArrayList<>();
+
+        for (Book book : this.books){
+            if (book.getPublicationYear() == year){
+                results.add(book);
+            }
+        }
+
+        return results;
+    }
+}
