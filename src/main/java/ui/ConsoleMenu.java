@@ -26,6 +26,7 @@ public class ConsoleMenu {
         System.out.println("4. Borrow Book");
         System.out.println("5. Return Book");
         System.out.println("6. Remove Book");
+        System.out.println("7. Edit Book");
         System.out.println("0. Exit");
 
         System.out.print("Enter your choice: ");
@@ -65,6 +66,10 @@ public class ConsoleMenu {
 
                 case 6:
                     removeBook();
+                    break;
+
+                case 7:
+                    editBook();
                     break;
 
                 case 0:
@@ -219,6 +224,62 @@ public class ConsoleMenu {
         } else {
             System.out.println("Removal failed!");
             System.out.println("Book not found or currently borrowed.");
+        }
+    }
+
+    private void editBook() {
+
+        System.out.println("\n--- Edit Book ---");
+
+        System.out.print("Enter book ISBN: ");
+        String isbn = scanner.nextLine();
+
+        System.out.println("\nWhat do you want to edit?");
+        System.out.println("1. Edit Title");
+        System.out.println("2. Edit Author");
+        System.out.println("3. Edit Publication Year");
+        System.out.println("0. Back");
+
+        System.out.print("Choose an option: ");
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        boolean success = false;
+
+        switch (choice) {
+
+            case 1:
+                System.out.print("Enter new title: ");
+                String newTitle = scanner.nextLine();
+
+                success = library.editBookTitle(isbn, newTitle);
+                break;
+
+            case 2:
+                System.out.print("Enter new author: ");
+                String newAuthor = scanner.nextLine();
+
+                success = library.editBookAuthor(isbn, newAuthor);
+                break;
+
+            case 3:
+                System.out.print("Enter new publication year: ");
+                int newYear = Integer.parseInt(scanner.nextLine());
+
+                success = library.editBookYear(isbn, newYear);
+                break;
+
+            case 0:
+                return;
+
+            default:
+                System.out.println("Invalid option!");
+                return;
+        }
+
+        if (success) {
+            System.out.println("Book updated successfully!");
+        } else {
+            System.out.println("Book not found!");
         }
     }
 }

@@ -115,4 +115,40 @@ public class Library {
         }
         return false;
     }
+
+    public boolean editBookTitle(String isbn, String newTitle) {
+
+        for (Book book : this.books) {
+            if (book.getIsbn().equals(isbn)) {
+                book.setTitle(newTitle);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean editBookAuthor(String isbn, String newAuthor) {
+
+        for (Book book : this.books) {
+            if (book.getIsbn().equals(isbn)) {
+                book.setAuthor(newAuthor);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean editBookYear(String isbn, int newYear) {
+
+        for (Book book : this.books) {
+            if (book.getIsbn().equals(isbn)) {
+                book.setPublicationYear(newYear);
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
