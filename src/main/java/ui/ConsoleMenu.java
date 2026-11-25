@@ -64,7 +64,7 @@ public class ConsoleMenu {
                     break;
 
                 case 6:
-                    System.out.println("Remove Book - Coming Soon");
+                    removeBook();
                     break;
 
                 case 0:
@@ -202,6 +202,23 @@ public class ConsoleMenu {
         } else {
             System.out.println("Returning failed!");
             System.out.println("Book not found or is not currently borrowed.");
+        }
+    }
+
+    private void removeBook() {
+
+        System.out.println("\n--- Remove Book ---");
+
+        System.out.print("Enter book ISBN: ");
+        String isbn = scanner.nextLine();
+
+        boolean success = library.removeBook(isbn);
+
+        if (success) {
+            System.out.println("Book removed successfully!");
+        } else {
+            System.out.println("Removal failed!");
+            System.out.println("Book not found or currently borrowed.");
         }
     }
 }
