@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -81,6 +82,18 @@ public class Library {
                 Loan loan = new Loan(book, borrowerName);
                 book.setAvailable(false);
                 this.loans.add(loan);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean returnBook(String isbn){
+        for (Loan loan : this.loans){
+            if (loan.getBook().getIsbn().equals(isbn) && loan.getReturnDate() == null){
+                loan.setReturnDate(LocalDate.now());
+                loan.getBook().setAvailable(true);
+
                 return true;
             }
         }
