@@ -56,7 +56,7 @@ public class ConsoleMenu {
                     break;
 
                 case 4:
-                    System.out.println("Borrow Book - Coming Soon");
+                    borrowBook();
                     break;
 
                 case 5:
@@ -166,5 +166,25 @@ public class ConsoleMenu {
         }
 
         System.out.println("--------------------");
+    }
+
+    private void borrowBook() {
+
+        System.out.println("\n--- Borrow Book ---");
+
+        System.out.print("Enter book ISBN: ");
+        String isbn = scanner.nextLine();
+
+        System.out.print("Enter borrower name: ");
+        String borrowerName = scanner.nextLine();
+
+        boolean success = library.borrowBook(isbn, borrowerName);
+
+        if (success) {
+            System.out.println("Book borrowed successfully!");
+        } else {
+            System.out.println("Borrowing failed!");
+            System.out.println("Book not found or already borrowed.");
+        }
     }
 }
