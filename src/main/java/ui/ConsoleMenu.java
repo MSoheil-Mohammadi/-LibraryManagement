@@ -3,6 +3,7 @@ package ui;
 import model.Library;
 import model.Book;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -47,7 +48,7 @@ public class ConsoleMenu {
                     break;
 
                 case 2:
-                    System.out.println("Show All Books");
+                    showAllBooks();
                     break;
 
                 case 3:
@@ -98,4 +99,22 @@ public class ConsoleMenu {
         System.out.println("Book added successfully!");
     }
 
+    private void showAllBooks() {
+
+        List<Book> books = library.getAllBooks();
+
+        if (books.isEmpty()) {
+            System.out.println("No books found.");
+            return;
+        }
+
+        for (Book book : books) {
+            System.out.println("--------------------");
+            System.out.println("Title: " + book.getTitle());
+            System.out.println("Author: " + book.getAuthor());
+            System.out.println("ISBN: " + book.getIsbn());
+            System.out.println("Year: " + book.getPublicationYear());
+            System.out.println("Available: " + book.isAvailable());
+        }
+    }
 }
