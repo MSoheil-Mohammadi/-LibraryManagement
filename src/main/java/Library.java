@@ -70,4 +70,20 @@ public class Library {
 
         return false;
     }
+
+    public boolean borrowBook (String isbn, String borrowerName){
+
+        for (Book book : this.books){
+            if(book.getIsbn().equals(isbn)){
+                if(!book.isAvailable()){
+                    return false;
+                }
+                Loan loan = new Loan(book, borrowerName);
+                book.setAvailable(false);
+                this.loans.add(loan);
+                return true;
+            }
+        }
+        return false;
+    }
 }
