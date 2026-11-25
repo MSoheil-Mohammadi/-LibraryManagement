@@ -1,6 +1,7 @@
-package model;
+package service;
 
-import service.Loan;
+import model.Book;
+import model.Loan;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

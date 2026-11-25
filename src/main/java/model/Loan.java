@@ -1,6 +1,4 @@
-package service;
-
-import model.Book;
+package model;
 
 import java.time.LocalDate;
 
