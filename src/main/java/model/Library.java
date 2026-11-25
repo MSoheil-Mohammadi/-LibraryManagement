@@ -1,8 +1,11 @@
+package model;
+
+import service.Loan;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 public class Library {
     private List<Book> books = new ArrayList<>();
