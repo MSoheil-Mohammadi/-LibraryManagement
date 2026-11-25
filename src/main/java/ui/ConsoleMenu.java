@@ -60,7 +60,7 @@ public class ConsoleMenu {
                     break;
 
                 case 5:
-                    System.out.println("Return Book - Coming Soon");
+                    returnBook();
                     break;
 
                 case 6:
@@ -185,6 +185,23 @@ public class ConsoleMenu {
         } else {
             System.out.println("Borrowing failed!");
             System.out.println("Book not found or already borrowed.");
+        }
+    }
+
+    private void returnBook() {
+
+        System.out.println("\n--- Return Book ---");
+
+        System.out.print("Enter book ISBN: ");
+        String isbn = scanner.nextLine();
+
+        boolean success = library.returnBook(isbn);
+
+        if (success) {
+            System.out.println("Book returned successfully!");
+        } else {
+            System.out.println("Returning failed!");
+            System.out.println("Book not found or is not currently borrowed.");
         }
     }
 }
