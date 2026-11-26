@@ -98,6 +98,20 @@ public class ConsoleMenu {
         }
     }
 
+    private int readYear(String message) {
+
+        while (true) {
+
+            int year = readInt(message);
+
+            if (year > 0 && year <= java.time.Year.now().getValue()) {
+                return year;
+            }
+
+            System.out.println("Invalid year!");
+        }
+    }
+
     private String readNonEmpty(String message) {
 
         while (true) {
@@ -126,7 +140,7 @@ public class ConsoleMenu {
             return;
         }
 
-        int year = readInt("Enter publication year: ");
+        int year = readYear("Enter publication year: ");
 
         Book book = new Book(title, author, isbn, year);
 
@@ -295,7 +309,7 @@ public class ConsoleMenu {
                 break;
 
             case 3:
-                int newYear = readInt("Enter new publication year: ");
+                int newYear = readYear("Enter new publication year: ");
                 success = library.editBookYear(isbn, newYear);
                 break;
 
