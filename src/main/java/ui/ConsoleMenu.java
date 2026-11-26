@@ -28,7 +28,6 @@ public class ConsoleMenu {
         System.out.println("6. Remove Book");
         System.out.println("7. Edit Book");
         System.out.println("0. Exit");
-
     }
 
     public void start() {
@@ -90,7 +89,7 @@ public class ConsoleMenu {
             String input = scanner.nextLine();
 
             try {
-                return Integer.parseInt(input);
+                return Integer.parseInt(input.trim());
 
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input! Please enter a valid number.");
@@ -135,7 +134,7 @@ public class ConsoleMenu {
         String author = readNonEmpty("Enter author name: ");
         String isbn = readNonEmpty("Enter ISBN: ");
 
-        if (library.isIsbnExists(isbn)){
+        if (library.isIsbnExists(isbn)) {
             System.out.println("A book with this ISBN already exists!");
             return;
         }
@@ -150,6 +149,7 @@ public class ConsoleMenu {
     }
 
     private void showAllBooks() {
+
         displayBooks(library.getAllBooks());
     }
 
@@ -166,23 +166,23 @@ public class ConsoleMenu {
         switch (choice) {
 
             case 1:
-                System.out.print("Enter title: ");
-                displayBooks(library.searchByTitle(scanner.nextLine()));
+                String title = readNonEmpty("Enter title: ");
+                displayBooks(library.searchByTitle(title));
                 break;
 
             case 2:
-                System.out.print("Enter author: ");
-                displayBooks(library.searchByAuthor(scanner.nextLine()));
+                String author = readNonEmpty("Enter author: ");
+                displayBooks(library.searchByAuthor(author));
                 break;
 
             case 3:
-                int year = readInt("Enter year: ");
+                int year = readYear("Enter year: ");
                 displayBooks(library.searchByYear(year));
                 break;
 
             case 4:
-                System.out.print("Available books? (true/false): ");
-                String availabilityInput = scanner.nextLine();
+                String availabilityInput =
+                        readNonEmpty("Available books? (true/false): ");
 
                 boolean available;
 
@@ -227,11 +227,19 @@ public class ConsoleMenu {
 
         System.out.println("\n--- Borrow Book ---");
 
-        System.out.print("Enter book ISBN: ");
-        String isbn = scanner.nextLine();
+        String isbn = readNonEmpty("Enter book ISBN: ");
 
-        System.out.print("Enter borrower name: ");
-        String borrowerName = scanner.nextLine();
+        if (!library.isIsbnExists(isbn)) {
+            System.out.println("Book not found!");
+            return;
+        }
+
+        if (!library.isBookAvailable(isbn)) {
+            System.out.println("Book is already borrowed!");
+            return;
+        }
+
+        String borrowerName = readNonEmpty("Enter borrower name: ");
 
         boolean success = library.borrowBook(isbn, borrowerName);
 
@@ -239,7 +247,6 @@ public class ConsoleMenu {
             System.out.println("Book borrowed successfully!");
         } else {
             System.out.println("Borrowing failed!");
-            System.out.println("Book not found or already borrowed.");
         }
     }
 
@@ -247,8 +254,17 @@ public class ConsoleMenu {
 
         System.out.println("\n--- Return Book ---");
 
-        System.out.print("Enter book ISBN: ");
-        String isbn = scanner.nextLine();
+        String isbn = readNonEmpty("Enter book ISBN: ");
+
+        if (!library.isIsbnExists(isbn)) {
+            System.out.println("Book not found!");
+            return;
+        }
+
+        if (library.isBookAvailable(isbn)) {
+            System.out.println("This book is not currently borrowed!");
+            return;
+        }
 
         boolean success = library.returnBook(isbn);
 
@@ -256,7 +272,6 @@ public class ConsoleMenu {
             System.out.println("Book returned successfully!");
         } else {
             System.out.println("Returning failed!");
-            System.out.println("Book not found or is not currently borrowed.");
         }
     }
 
@@ -264,8 +279,7 @@ public class ConsoleMenu {
 
         System.out.println("\n--- Remove Book ---");
 
-        System.out.print("Enter book ISBN: ");
-        String isbn = scanner.nextLine();
+        String isbn = readNonEmpty("Enter book ISBN: ");
 
         boolean success = library.removeBook(isbn);
 
@@ -281,8 +295,12 @@ public class ConsoleMenu {
 
         System.out.println("\n--- Edit Book ---");
 
-        System.out.print("Enter book ISBN: ");
-        String isbn = scanner.nextLine();
+        String isbn = readNonEmpty("Enter book ISBN: ");
+
+        if (!library.isIsbnExists(isbn)) {
+            System.out.println("Book not found!");
+            return;
+        }
 
         System.out.println("\nWhat do you want to edit?");
         System.out.println("1. Edit Title");
@@ -297,14 +315,12 @@ public class ConsoleMenu {
         switch (choice) {
 
             case 1:
-                System.out.print("Enter new title: ");
-                String newTitle = scanner.nextLine();
+                String newTitle = readNonEmpty("Enter new title: ");
                 success = library.editBookTitle(isbn, newTitle);
                 break;
 
             case 2:
-                System.out.print("Enter new author: ");
-                String newAuthor = scanner.nextLine();
+                String newAuthor = readNonEmpty("Enter new author: ");
                 success = library.editBookAuthor(isbn, newAuthor);
                 break;
 

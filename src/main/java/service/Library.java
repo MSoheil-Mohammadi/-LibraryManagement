@@ -160,4 +160,16 @@ public class Library {
         }
         return false;
     }
+
+    public boolean isBookAvailable(String isbn) {
+
+        for (Book book : books) {
+
+            if (book.getIsbn().equals(isbn)) {
+                return book.isAvailable();
+            }
+        }
+
+        return false;
+    }
 }
