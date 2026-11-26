@@ -98,18 +98,28 @@ public class ConsoleMenu {
         }
     }
 
+    private String readNonEmpty(String message) {
+
+        while (true) {
+
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+
+            if (!input.isEmpty()) {
+                return input;
+            }
+
+            System.out.println("Input cannot be empty!");
+        }
+    }
+
     private void addBook() {
 
         System.out.println("\n--- Add Book ---");
 
-        System.out.print("Enter book title: ");
-        String title = scanner.nextLine();
-
-        System.out.print("Enter author name: ");
-        String author = scanner.nextLine();
-
-        System.out.print("Enter ISBN: ");
-        String isbn = scanner.nextLine();
+        String title = readNonEmpty("Enter book title: ");
+        String author = readNonEmpty("Enter author name: ");
+        String isbn = readNonEmpty("Enter ISBN: ");
 
         int year = readInt("Enter publication year: ");
 
