@@ -1,3 +1,4 @@
+
 package ui;
 
 import model.Book;
@@ -16,7 +17,6 @@ public class ConsoleMenu {
         this.scanner = new Scanner(System.in);
     }
 
-    // Display the main menu
     private void displayMenu() {
 
         System.out.println("\n===== Library Management System =====");
@@ -29,7 +29,6 @@ public class ConsoleMenu {
         System.out.println("7. Edit Book");
         System.out.println("0. Exit");
 
-        System.out.print("Enter your choice: ");
     }
 
     public void start() {
@@ -40,7 +39,7 @@ public class ConsoleMenu {
 
             displayMenu();
 
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = readInt("Enter your choice: ");
 
             switch (choice) {
 
@@ -83,6 +82,22 @@ public class ConsoleMenu {
         }
     }
 
+    private int readInt(String message) {
+
+        while (true) {
+
+            System.out.print(message);
+            String input = scanner.nextLine();
+
+            try {
+                return Integer.parseInt(input);
+
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid number.");
+            }
+        }
+    }
+
     private void addBook() {
 
         System.out.println("\n--- Add Book ---");
@@ -96,8 +111,7 @@ public class ConsoleMenu {
         System.out.print("Enter ISBN: ");
         String isbn = scanner.nextLine();
 
-        System.out.print("Enter publication year: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        int year = readInt("Enter publication year: ");
 
         Book book = new Book(title, author, isbn, year);
 
@@ -107,11 +121,9 @@ public class ConsoleMenu {
     }
 
     private void showAllBooks() {
-
         displayBooks(library.getAllBooks());
     }
 
-    // Search books
     private void searchBooks() {
 
         System.out.println("\n--- Search Books ---");
@@ -120,9 +132,7 @@ public class ConsoleMenu {
         System.out.println("3. Search by Year");
         System.out.println("4. Search by Availability");
 
-        System.out.print("Choose search type: ");
-
-        int choice = Integer.parseInt(scanner.nextLine());
+        int choice = readInt("Choose search type: ");
 
         switch (choice) {
 
@@ -137,14 +147,25 @@ public class ConsoleMenu {
                 break;
 
             case 3:
-                System.out.print("Enter year: ");
-                int year = Integer.parseInt(scanner.nextLine());
+                int year = readInt("Enter year: ");
                 displayBooks(library.searchByYear(year));
                 break;
 
             case 4:
                 System.out.print("Available books? (true/false): ");
-                boolean available = Boolean.parseBoolean(scanner.nextLine());
+                String availabilityInput = scanner.nextLine();
+
+                boolean available;
+
+                if (availabilityInput.equalsIgnoreCase("true")) {
+                    available = true;
+                } else if (availabilityInput.equalsIgnoreCase("false")) {
+                    available = false;
+                } else {
+                    System.out.println("Please enter true or false.");
+                    return;
+                }
+
                 displayBooks(library.searchByAvailability(available));
                 break;
 
@@ -240,8 +261,7 @@ public class ConsoleMenu {
         System.out.println("3. Edit Publication Year");
         System.out.println("0. Back");
 
-        System.out.print("Choose an option: ");
-        int choice = Integer.parseInt(scanner.nextLine());
+        int choice = readInt("Choose an option: ");
 
         boolean success = false;
 
@@ -250,21 +270,17 @@ public class ConsoleMenu {
             case 1:
                 System.out.print("Enter new title: ");
                 String newTitle = scanner.nextLine();
-
                 success = library.editBookTitle(isbn, newTitle);
                 break;
 
             case 2:
                 System.out.print("Enter new author: ");
                 String newAuthor = scanner.nextLine();
-
                 success = library.editBookAuthor(isbn, newAuthor);
                 break;
 
             case 3:
-                System.out.print("Enter new publication year: ");
-                int newYear = Integer.parseInt(scanner.nextLine());
-
+                int newYear = readInt("Enter new publication year: ");
                 success = library.editBookYear(isbn, newYear);
                 break;
 
