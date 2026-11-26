@@ -121,6 +121,11 @@ public class ConsoleMenu {
         String author = readNonEmpty("Enter author name: ");
         String isbn = readNonEmpty("Enter ISBN: ");
 
+        if (library.isIsbnExists(isbn)){
+            System.out.println("A book with this ISBN already exists!");
+            return;
+        }
+
         int year = readInt("Enter publication year: ");
 
         Book book = new Book(title, author, isbn, year);

@@ -151,4 +151,13 @@ public class Library {
 
         return false;
     }
+
+    public boolean isIsbnExists(String isbn){
+        for (Book book : this.books) {
+            if (book.getIsbn().equals(isbn)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
